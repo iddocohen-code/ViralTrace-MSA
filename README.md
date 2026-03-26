@@ -12,8 +12,8 @@ ViralTrace-MSA is a modular toolkit for aligning closely related **circular vira
 - `tests/`
   - `test_genome_utils.py`: Unit tests for FASTA parsing, rotation, and calibration.
 - `examples/`
-  - `BLAST.fasta`: full genomes of some creatures
-  - `example1.fasta`: small syntetic example
+  - `BLAST.fasta`: Full genomes of some creatures
+  - `example1.fasta`: A small synthetic example
 - `main.py`
   - CLI entry point running the pipeline: **Read -> Calibrate -> Align -> PSSM -> Plot**.
 
