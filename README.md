@@ -31,7 +31,7 @@ Run on the bundled synthetic example:
 
 ```bash
 python main.py \
-  --input examples/BLAST.fasta \
+  --input examples/example1.fasta \
   --output-alignment aligned_sample.fasta \
   --output-plot entropy_sample.png \
   --match 1 --mismatch -1 --gap -1 \
