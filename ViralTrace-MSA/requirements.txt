@@ -1,6 +1,0 @@
-biopython
-pandas
-numpy
-seaborn
-matplotlib
-pytest
