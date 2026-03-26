@@ -60,10 +60,19 @@ Pairwise global alignment and calibration are computationally expensive for long
 
 ## How the key steps work
 
-### Circular genome calibration
+### Circular Genome Calibration (Heuristic Algorithm)
 
-`calibrate_genomes()` estimates a good rotation (start index) for each sequence using **local alignment** against a consensus. The goal is to orient genomes before MSA.
+Since viral genomes are often circular, their starting positions in FASTA files are arbitrary. To ensure a meaningful MSA, the toolkit implements a sophisticated iterative heuristic to co-orient the sequences:
 
+1.  **Initial Consensus:** A primary consensus sequence is generated from the input records to serve as the initial reference.
+2.  **Iterative Re-orientation:**
+    * **Local Alignment:** Each genome is locally aligned against the current reference to identify the region of maximal similarity.
+    * **Rotation:** Each sequence is rotated so that the start of the highest-scoring local alignment becomes the new sequence start.
+    * **Evaluation:** The algorithm calculates the total similarity score of the newly rotated set.
+3.  **Adaptive Optimization:**
+    * **Greedy Step:** If the total score improves significantly, the new orientation is accepted, and a new consensus is generated.
+    * **Stochastic Escape:** If no improvement is found, a "Certainty Tracker" (stagnation counter) increases. A random sequence from the set is then chosen as the new reference to "shake" the algorithm out of local optima and discover better global alignments.
+4.  **Termination:** The process concludes when the orientation remains stable for a threshold of iterations (10x the number of sequences), ensuring a high-confidence starting point for the subsequent MSA.
 ### Center-Star MSA
 
 `perform_msa()`:
